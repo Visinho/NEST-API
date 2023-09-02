@@ -6,7 +6,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
 import * as argon from 'argon2';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class AuthService {
@@ -27,9 +27,9 @@ export class AuthService {
         //   id: true,
         //   email: true,
         //   createdAt: true
-        // }
+        // } This would display only the fields that you want to be displayed
       });
-      delete user.hash;
+      delete user.hash; // To remove any field that should not be returned (Hash)
       return user;
     } catch (error) {
       if (

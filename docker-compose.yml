@@ -1,15 +1,15 @@
-version: "3.8"
 services:
-  dev-db:
-    image: postgres:13
-    container_name: postgres
-    ports:
-      - 5434:5432
+  postgres:
+    image: postgres
+    restart: always
+    env_file:
+        - .env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nest-project
-    networks:
-      - Visinho
-networks:
-  Visinho:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+volumes:
+  postgres:
