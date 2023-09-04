@@ -1,6 +1,7 @@
-import { Controller, Body, Post } from "@nestjs/common";
+import { Controller, Body, Post, Req, UseGuards} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto";
+import { JwtStrategy } from "./strategy";
 
 @Controller("auth")
 export class AuthController{
@@ -12,6 +13,7 @@ export class AuthController{
     }
 
     @Post("signin")
+    @UseGuards(JwtStrategy)
     signin(@Body() dto: AuthDto){
         return this.authService.signin(dto);
     }
